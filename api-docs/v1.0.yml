@@ -9,6 +9,7 @@ servers:
 
 tags:
   - name: customers
+  - name: teste
 
 paths:
   /customers:
@@ -17,7 +18,7 @@ paths:
     get:
       tags:
       - customers
-      summary: 'Get customers list'
+      summary: 'Get customers array'
       responses:
         '200':
           description: 'Success'
@@ -27,3 +28,41 @@ paths:
                 type: array
                 items:
                   type: string
+    
+    post:
+      tags:
+      - customers
+      summary: 'Create a new customer'
+      requestBody:
+        description: '<h2>A String name</h2>'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reqCreateCustomer'
+
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resCreateCustomer'
+
+components:
+  schemas:
+    reqCreateCustomer:
+      type: object
+      properties:
+        nome:
+         type: string
+         example: 'Bruce Wayne'
+      
+      required:
+        - nome
+    
+    resCreateCustomer:
+      type: array
+      items:
+        type: string
+        example: 'Bruce Wayne'
